@@ -5,7 +5,7 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
-import { CreateUserDto } from 'src/user/dtos/createUser.dto';
+import { AuthUserDto } from 'src/user/dtos/authUser.dto';
 import { UserDto } from 'src/user/dtos/user.dto';
 import { UserService } from 'src/user/user.service';
 
@@ -16,7 +16,7 @@ export class AuthService {
     private userService: UserService,
   ) {}
 
-  private signUser(authUserDto: CreateUserDto) {
+  private signUser(authUserDto: AuthUserDto) {
     return this.jwtService.sign(authUserDto);
   }
 
@@ -34,7 +34,7 @@ export class AuthService {
     };
   }
 
-  async login(authUserDto: CreateUserDto) {
+  async login(authUserDto: AuthUserDto) {
     const foundUser = await this.userService.findOne(authUserDto.email);
 
     if (!foundUser) {

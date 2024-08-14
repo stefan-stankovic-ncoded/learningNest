@@ -1,5 +1,5 @@
 import { Body, Controller, Post, ValidationPipe } from '@nestjs/common';
-import { CreateUserDto } from 'src/user/dtos/createUser.dto';
+import { AuthUserDto } from 'src/user/dtos/authUser.dto';
 import { AuthService } from './auth.service';
 import { Role } from './constants/constants';
 
@@ -8,17 +8,17 @@ export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
   @Post('register-user')
-  registerUser(@Body(ValidationPipe) authUserDto: CreateUserDto) {
+  registerUser(@Body(ValidationPipe) authUserDto: AuthUserDto) {
     return this.authService.register({ ...authUserDto, roles: [Role.User] });
   }
 
   @Post('register-admin')
-  registerAdmin(@Body(ValidationPipe) authUserDto: CreateUserDto) {
+  registerAdmin(@Body(ValidationPipe) authUserDto: AuthUserDto) {
     return this.authService.register({ ...authUserDto, roles: [Role.Admin] });
   }
 
   @Post('login')
-  login(@Body(ValidationPipe) authUserDto: CreateUserDto) {
+  login(@Body(ValidationPipe) authUserDto: AuthUserDto) {
     return this.authService.login(authUserDto);
   }
 }
