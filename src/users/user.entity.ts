@@ -1,9 +1,10 @@
 import { Role } from 'src/decorators/roles.decorator';
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, Generated, PrimaryColumn } from 'typeorm';
 
-@Entity()
+@Entity({ name: 'users' })
 export class User {
-  @PrimaryGeneratedColumn()
+  @PrimaryColumn()
+  @Generated('increment')
   id: number;
 
   @Column()

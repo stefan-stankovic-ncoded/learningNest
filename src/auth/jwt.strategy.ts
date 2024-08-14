@@ -14,8 +14,6 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
   }
 
   async validate(payload: any) {
-    // This is the place we can go to the database, pull the user out,
-    // do some more token validation steps
-    return { userId: payload.sub, email: payload.email };
+    return { id: payload.id, email: payload.email, role: payload.role };
   }
 }
