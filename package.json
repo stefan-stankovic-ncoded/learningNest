@@ -22,7 +22,9 @@
     "test:watch": "jest --watch",
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
-    "test:e2e": "jest --config ./test/jest-e2e.json"
+    "test:e2e": "jest --config ./test/jest-e2e.json",
+    "post-merge": "git-branch-is -r \"^((?!master).)*$\" || (git-branch-is master && yarn deploy)",
+    "deploy": "docker rm -f $(docker ps -aqf ancestor=nest-app) && docker build -t nest-app . && docker run -p 3001:3000 nest-app"
   },
   "dependencies": {
     "@nestjs/common": "^10.0.0",
