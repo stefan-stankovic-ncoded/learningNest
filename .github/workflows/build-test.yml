@@ -23,4 +23,16 @@ jobs:
           cache: 'yarn'
       - run: yarn --frozen-lockfile
       - run: yarn build
+  test:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout repo
+        uses: actions/checkout@v4
+      - name: use node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'yarn'
+      - run: yarn --frozen-lockfile
       - run: yarn test
